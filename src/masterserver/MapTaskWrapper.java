@@ -38,7 +38,7 @@ public class MapTaskWrapper implements IMRTask, Serializable {
 		Scanner s2 = null;
 		String baseDir = System.getProperty("user.dir") + "\\assets\\" + workerName + "\\";
 		try {
-			Function<Object, Object> oneClassObj = (Function<Object, Object>) cl.newInstance();
+			Function<String, String> mapper = (Function<String, String>) cl.newInstance();
 			for (int partition : partitionList) {
 				String intermediary = baseDir + "intermediate_results\\";
 				String intermediaryPartition = intermediary + partition + "\\";
@@ -61,12 +61,12 @@ public class MapTaskWrapper implements IMRTask, Serializable {
 						s2 = new Scanner(sc.nextLine());
 						while (s2.hasNext()) {
 							String s = s2.next();
-							sb.append(s + ",1" + System.lineSeparator());
+							String result = mapper.apply(s);
+							sb.append(result);
 						}
 					}
 					writeToFile(sb.toString(), intermediaryPartition + currentFileName);
 				}
-
 			}
 
 		} catch (InstantiationException e) {
