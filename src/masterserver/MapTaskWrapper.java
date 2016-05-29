@@ -49,7 +49,6 @@ public class MapTaskWrapper implements IMRTask, Serializable {
 				String partitionPath = dataPath + partition;
 				File folderPath = new File(partitionPath);
 				for (File file : folderPath.listFiles()) {
-					// Apply map function here.
 					String filePath = file.getAbsolutePath();
 					String currentFileName = file.getName();
 					try {
